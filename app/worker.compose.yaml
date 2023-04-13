@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  worker:
+    container_name: locust-tc-worker
+    build:
+      context: .
+      dockerfile: docker/locust.Dockerfile
+    volumes:
+      - /mnt/locust:/mnt/locust
+    networks:
+      - locust-tc-net
+    labels:
+      - "com.docker-tc.enabled=1"
+    command: -f /mnt/locust/locustfile_paho.py --worker --master-host master.iot-simulator
+    environment:
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      MQTT_WAIT_TIME: "${MQTT_WAIT_TIME}"
+      MQTT_QOS: "${MQTT_QOS}"
+      MQTT_MESSAGE: "${MQTT_MESSAGE}"
+      IOT_CORE_ENDPOINT: "${IOT_CORE_ENDPOINT}"
+      IOT_CORE_MQTT_TOPIC: "${IOT_CORE_MQTT_TOPIC}"
+      PARAM_STORE_CERT_PATH: "${PARAM_STORE_CERT_PATH}"
+      PARAM_STORE_PRIV_PATH: "${PARAM_STORE_PRIV_PATH}"
+
+networks:
+  locust-tc-net:
+    driver: bridge
