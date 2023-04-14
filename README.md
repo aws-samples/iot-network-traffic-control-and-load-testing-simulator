@@ -246,7 +246,7 @@ below image.
 Now the deployment is completed! You can start to use Locust load tester.
 
 
-## 6. Clean up
+## Clean up
 
 To avoid incurring future charges, clean up the resources you created.
 
@@ -257,7 +257,7 @@ npx cdk destroy --force
 ```
 
 
-## 7. How it works
+## How it works
 
 We deploy Locust with distributed mode, so there are two ECS services, master service and worker service. The number 
 of Locust master instance is always one, and it can be accessed via Application Load Balancer.
@@ -296,10 +296,10 @@ Note that all the access from Locust workers go through NAT Gateway, which makes
 addresses on load test target servers, because all the Locust workers shares the same outbound IP address among them.
 
 
-## 8. Security
+## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
-## 9. License
+## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
