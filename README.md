@@ -5,10 +5,10 @@
 This sample shows you how to deploy IoT Simulator with two CDK stacks;
 1) `IoTFaultInjectionSimulatorStack`
    - **Control network traffic on your IoT application**, to simulate real-world environment where network quality may vary.
-   - Able to **monitor how your IoT application**, IoT Core and attached backend services react to different **network conditions**. 
+   - Able to **monitor how your IoT application**, IoT Core and attached backend services **react to different network conditions**. 
 2) `IoTLoadTestingSimulatorStack`
-   - Load testing tool that simulates hundreds to millions of IoT devices.
-   - Able to monitor how IoT Core scales out, MQTT ingestion latency or throttling scenarios.
+   - Load testing tool that **simulates hundreds to millions of IoT devices**.
+   - Able to monitor how **IoT Core scales out**, MQTT **ingestion latency** or **throttling scenarios**.
 
 This sample uses [Locust](https://locust.io/), a modern load testing framework, installed on [Amazon Elastic
 Container Service (ECS)](https://aws.amazon.com/ko/ecs/) of which workers are configured to send MQTT topic to
@@ -48,20 +48,20 @@ You only need those commands once for your AWS environment (pair of account ID a
 
 ### 3. Select Stack and deploy
 
-Each stack has different ways to deploy and use. Please follow guides for each Stacks.
+Each stack has different ways in terms of deployment. **Please select one of below guides** to get them up each!
+
 - 👉 [**Guide for `IoTFaultInjectionSimulatorStack`**](#3a-deploy-iotfaultinjectionsimulatorstack)
 - 👉 [**Guide for `IoTLoadTestingSimulatorStack`**](#3b-deploy-iotloadtestingsimulatorstack)
 
 -----
 
-### 3.A Deploy `IoTFaultInjectionSimulatorStack`
+### 3. Deploy `IoTFaultInjectionSimulatorStack`
 
 > In this mode, you can simulate Network Traffic environment (packet limit, delay, duplicate, corrupt etc.)
 
-#### 3.A.1 Set Parameters
+#### 3.1 Set Parameters
 
-Before deploy, you need to first decide what Stack to deploy to your AWS account. If you decided which stack
-to deploy, please open [cdkconfig.ts](cdkconfig.ts) and browse to the stack class you want to run.
+When you open [cdkconfig.ts](cdkconfig.ts), you may be seeing CDK stack class similar to below code snippet.
 
 ```typescript
 new IoTFaultInjectionSimulatorStack(app, 'IoTFaultInjectionSimulatorStack', {
@@ -71,7 +71,7 @@ new IoTFaultInjectionSimulatorStack(app, 'IoTFaultInjectionSimulatorStack', {
   },
 ```
 
-Starting from this class, you may change parameters in it. Below is the list of parameters for each Stack classes.
+Starting from this class, you may change parameters in it. Below lists up any parameters to use for each this stack.
 
 #### Parameters
 - `region`: Specify which AWS region to deploy this stack to.
@@ -81,7 +81,7 @@ Starting from this class, you may change parameters in it. Below is the list of 
 - `iotCoreMqttTopic`: IoT Core topic you want to send MQTT message to.
 - `iotThingName`: IoT Core ThingName you want to use.
 
-#### 3.A.2 Run cdk deploy
+#### 3.2 Run cdk deploy
 
 Now you can deploy your desired CDK stack project.
 
@@ -110,7 +110,7 @@ arn:aws:cloudformation:ap-northeast-2:238877058502:stack/IoTFaultInjectionSimula
 ✨  Total time: 350.28s
 ```
 
-#### 3.A.3 Locust UI
+#### 3.3 Locust UI
 From now on, 
 
 After that, please make sure that you can open the URL in `LocustLTMasterServiceServiceURLF6337D0A` and view Locust Web GUI like
@@ -119,7 +119,7 @@ below image.
 ![start](imgs/locust_start.png)
 
 
-#### 3.A.4 Run tc-controller.py
+#### 3.4 Run tc-controller.py
 In order to dynamically change Network Traffic on worker, we should use `tc-controller.py`!
 
 Navigate to [tc-controller.py](tc-controller.py), change the `BASE_API_URL` to the value you found in CDK output, `IoTFaultInjectionSimulatorStack.TrafficControlURL`.
@@ -139,12 +139,12 @@ After specifying `BASE_API_URL`, run the script.
 ![start](imgs/tc-controller.png)
 
 
-#### 3.A.5 Watch this demo!
+#### 3.5 Watch this demo!
 
 https://user-images.githubusercontent.com/47458431/232047665-47650dcf-2f50-4aa8-9f4e-9d131dfea781.mp4
 
 
-#### 3.A.6 Monitoring
+#### 3.6 Monitoring
 
 You can also monitor your IoT client side logs in ECS CloudWatch logs. Navigate to Elastic Container Service, go to woker service similar to `IoTFaultInjectionSimulatorStack-LocustTcWorkerServiceXXXXXXXXX`, and go to `Logs` tab. You may detect any malicious code, uncovered network related corner cases in your code if something happens while controlling network traffic.
 
@@ -152,7 +152,7 @@ You can also monitor your IoT client side logs in ECS CloudWatch logs. Navigate 
 
 
 
-#### 3.A.7 NOTE for `tc-controller.py`
+#### 3.7 NOTE for `tc-controller.py`
 
 The stack makes use of [`docker-tc`](https://github.com/lukaszlach/docker-tc). Docker
 Traffic Control allows to set a rate limit on the container network and can emulate network conditions like delay,
@@ -182,11 +182,11 @@ Now the deployment is completed! You can start to use Locust load tester.
 
 -----
 
-### 3.B Deploy `IoTLoadTestingSimulatorStack`
+### 4. Deploy `IoTLoadTestingSimulatorStack`
 
 > In this stack, you can simulate hundreds of thousands devices and load test to IoT Core Endpoint.
 
-#### 3.B.1 Set Parameters
+#### 4.1 Set Parameters
 
 Before deploy, you need to first decide what Stack to deploy to your AWS account. If you decided which stack
 to deploy, please open [cdkconfig.ts](cdkconfig.ts) and browse to the stack class you want to run.
@@ -202,7 +202,7 @@ new IoTLoadTestingSimulatorStack(app, 'IoTLoadTestingSimulatorStack', {
 > Note that each `IoTLoadTestingSimulatorStack` stack has additional parameter, 
 > - `workerDesiredCount`: Please adjust this number depending on the number of devices you want to simulate. If you want to simulate millions of devices, you may have to increase this parameter by >100.
 
-#### 3.B.2 Run cdk deploy
+#### 4.2 Run cdk deploy
 
 Now you can deploy your desired CDK stack project.
 
@@ -232,7 +232,7 @@ arn:aws:cloudformation:ap-northeast-2:238877058502:stack/IoTLoadTestingSimulator
 ✨  Total time: 311.17s
 ```
 
-#### 3.B.3 Locust UI
+#### 4.3 Locust UI
 From now on, 
 
 You need the value of `EcsClusterArn` and `WorkerServiceName` in later steps, so it is recommended that you take a note
@@ -246,7 +246,7 @@ below image.
 Now the deployment is completed! You can start to use Locust load tester.
 
 
-## 4. Clean up
+## 5. Clean up
 
 To avoid incurring future charges, clean up the resources you created.
 
@@ -257,7 +257,7 @@ npx cdk destroy --force
 ```
 
 
-## 5. How it works
+## 6. How it works
 
 We deploy Locust with distributed mode, so there are two ECS services, master service and worker service. The number 
 of Locust master instance is always one, and it can be accessed via Application Load Balancer.
@@ -296,10 +296,10 @@ Note that all the access from Locust workers go through NAT Gateway, which makes
 addresses on load test target servers, because all the Locust workers shares the same outbound IP address among them.
 
 
-## 6. Security
+## 7. Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
-## 7. License
+## 8. License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
