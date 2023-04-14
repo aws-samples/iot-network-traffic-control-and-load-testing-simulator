@@ -110,7 +110,7 @@ arn:aws:cloudformation:ap-northeast-2:238877058502:stack/IoTFaultInjectionSimula
 ✨  Total time: 350.28s
 ```
 
-### 3.A.3 Locust UI
+#### 3.A.3 Locust UI
 From now on, 
 
 After that, please make sure that you can open the URL in `LocustLTMasterServiceServiceURLF6337D0A` and view Locust Web GUI like
@@ -119,7 +119,7 @@ below image.
 ![start](imgs/locust_start.png)
 
 
-### 3.A.4 Run tc-controller.py
+#### 3.A.4 Run tc-controller.py
 In order to dynamically change Network Traffic on worker, we should use `tc-controller.py`!
 
 Navigate to [tc-controller.py](tc-controller.py), change the `BASE_API_URL` to the value you found in CDK output, `IoTFaultInjectionSimulatorStack.TrafficControlURL`.
@@ -138,11 +138,13 @@ After specifying `BASE_API_URL`, run the script.
 
 ![start](imgs/tc-controller.png)
 
-### 3.A.5 Watch this demo!
+
+#### 3.A.5 Watch this demo!
 
 https://user-images.githubusercontent.com/47458431/232047665-47650dcf-2f50-4aa8-9f4e-9d131dfea781.mp4
 
-### 3.A.6 Monitoring
+
+#### 3.A.6 Monitoring
 
 You can also monitor your IoT client side logs in ECS CloudWatch logs. Navigate to Elastic Container Service, go to woker service similar to `IoTFaultInjectionSimulatorStack-LocustTcWorkerServiceXXXXXXXXX`, and go to `Logs` tab. You may detect any malicious code, uncovered network related corner cases in your code if something happens while controlling network traffic.
 
@@ -230,7 +232,7 @@ arn:aws:cloudformation:ap-northeast-2:238877058502:stack/IoTLoadTestingSimulator
 ✨  Total time: 311.17s
 ```
 
-### 3.B.3 Locust UI
+#### 3.B.3 Locust UI
 From now on, 
 
 You need the value of `EcsClusterArn` and `WorkerServiceName` in later steps, so it is recommended that you take a note
@@ -243,6 +245,7 @@ below image.
 
 Now the deployment is completed! You can start to use Locust load tester.
 
+
 ## 4. Clean up
 
 To avoid incurring future charges, clean up the resources you created.
@@ -252,6 +255,7 @@ You can remove all the AWS resources deployed by this sample running the followi
 ```sh
 npx cdk destroy --force
 ```
+
 
 ## 5. How it works
 
