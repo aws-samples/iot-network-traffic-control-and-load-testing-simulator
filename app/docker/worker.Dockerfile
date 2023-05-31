@@ -16,6 +16,7 @@ RUN apt -y install python3-pip
 # Install docker
 RUN apt -y install docker
 RUN apt -y install docker-compose
+RUN chmod -R 755 /certificates
 
 # Clone docker-tc
 RUN mkdir /app/docker-tc
