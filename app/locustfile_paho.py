@@ -66,7 +66,7 @@ class MqttClient:
                            certfile=self.cert_file,
                            keyfile=self.priv_file,
                            cert_reqs=ssl.CERT_REQUIRED,
-                           tls_version=ssl.PROTOCOL_TLSv1_2,
+                           tls_version=ssl.PROTOCOL_TLS_CLIENT,
                            ciphers=None)
 
         result_of_connection = self.mqttc.connect(self.host, self.port, keepalive=120)
